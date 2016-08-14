@@ -1,0 +1,26 @@
+# keylock-tray
+-------------------------------------------------------------------------------
+
+This is a simple application that displays tray icons if either caps lock or num lock are on. It is intended for systems that lack LEDs to indicate their status.
+
+
+
+## Dependencies & Building
+
+* GTK2
+* cmake
+
+To compile, run the following in the base directory:
+
+```
+cmake
+make
+```
+
+
+
+## Copyright & License
+
+keylock-tray is Copyright © 2016 Justin Jacobs.
+This software is released under the GNU GPL v3. Later versions are permitted.
+
