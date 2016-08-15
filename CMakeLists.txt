@@ -59,6 +59,13 @@ Else (NOT GTK2_FOUND)
     Include_Directories (${GTK2_INCLUDE_DIRS})
 EndIf (NOT GTK2_FOUND)
 
+Find_Package (X11 REQUIRED)
+If (NOT X11_FOUND)
+    Message (FATAL_ERROR "Couldn't find X11 development files.")
+Else (NOT X11_FOUND)
+    Include_Directories (${X11_INCLUDE_DIRS})
+EndIf (NOT X11_FOUND)
+
 # Sources
 
 Set (PROGRAM_SOURCES
@@ -67,7 +74,7 @@ Set (PROGRAM_SOURCES
 
 Add_Executable (keylock-tray ${PROGRAM_SOURCES})
 
-Target_Link_Libraries (keylock-tray ${CMAKE_LD_FLAGS} ${GTK2_LIBRARIES} ${LIBXML2_LIBRARIES} ${CURL_LIBRARIES})
+Target_Link_Libraries (keylock-tray ${CMAKE_LD_FLAGS} ${GTK2_LIBRARIES} ${X11_LIBRARIES})
 
 
 # installing to the proper places

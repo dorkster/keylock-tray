@@ -16,13 +16,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdlib.h>
-#include <stdbool.h>
-
-#include <string.h>
-
-#include <gtk/gtk.h>
+#include <X11/XKBlib.h>
 #include <glib.h>
+#include <gtk/gtk.h>
+#include <stdbool.h>
 
 #ifndef PIXMAPDIR
 #define PIXMAPDIR "/usr/share/pixmaps"
@@ -34,24 +31,16 @@ typedef struct KeyLockState {
 
     GtkStatusIcon *caps_icon;
     GtkStatusIcon *num_icon;
+    Display *x_display;
 }KeyLockState;
 
 gboolean check_keylock_state(KeyLockState* kls) {
-    FILE *fp;
-    char line[BUFSIZ];
+    if (kls->x_display) {
+        unsigned n;
+        XkbGetIndicatorState(kls->x_display, XkbUseCoreKbd, &n);
 
-    fp = popen("xset q | grep \"Caps Lock: *on\"", "r");
-    if (fp) {
-        memset(line, 0, sizeof(line));
-        kls->caps_on = (fgets(line, sizeof(line)-1, fp) != NULL);
-        pclose(fp);
-    }
-
-    fp = popen("xset q | grep \"Num Lock: *on\"", "r");
-    if (fp) {
-        memset(line, 0, sizeof(line));
-        kls->num_on = (fgets(line, sizeof(line)-1, fp) != NULL);
-        pclose(fp);
+        kls->caps_on = (n & 0x01) == 1;
+        kls->num_on = (n & 0x02) == 2;
     }
 
     if (kls->caps_on) {
@@ -75,11 +64,16 @@ gboolean check_keylock_state(KeyLockState* kls) {
 }
 
 int main(int argc, char* argv[]) {
-    gtk_init(&argc, &argv);
-
     KeyLockState kls;
     kls.caps_on = false;
     kls.num_on = false;
+    kls.x_display = XOpenDisplay(0);
+    if (!kls.x_display) {
+        fprintf(stderr, "keylock-tray: Unable to get X display. Aborting.\n");
+        return 1;
+    }
+
+    gtk_init(&argc, &argv);
 
     kls.caps_icon = gtk_status_icon_new_from_file(PIXMAPDIR"/keylock-tray-caps.svg");
     if (!gtk_status_icon_get_pixbuf(kls.caps_icon)) {
