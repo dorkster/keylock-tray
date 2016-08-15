@@ -6,6 +6,7 @@ This is a simple application that displays tray icons if either caps lock or num
 
 ## Dependencies & Building
 
+* X11
 * GTK2
 * cmake
 
