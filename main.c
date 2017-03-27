@@ -90,7 +90,7 @@ int main(int argc, char* argv[]) {
     gtk_status_icon_set_title(kls.caps_icon, "KeyLockTray: Num Lock");
 
     check_keylock_state(&kls);
-    g_timeout_add_seconds(1, (GSourceFunc) check_keylock_state, &kls);
+    g_timeout_add(33, (GSourceFunc) check_keylock_state, &kls);
 
     gtk_main();
 
