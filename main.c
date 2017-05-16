@@ -143,25 +143,16 @@ int main(int argc, char* argv[]) {
         pixbuf_caps = load_icon("./keylock-tray-caps.svg", BG_COLOR, FG_COLOR);
     }
     kls.caps_icon = gtk_status_icon_new_from_pixbuf(pixbuf_caps);
+    g_object_unref(pixbuf_caps);
 
     GdkPixbuf *pixbuf_num = load_icon(PIXMAPDIR"/keylock-tray-num.svg", BG_COLOR, FG_COLOR);
     if (!pixbuf_num) {
         pixbuf_num = load_icon("./keylock-tray-num.svg", BG_COLOR, FG_COLOR);
     }
     kls.num_icon = gtk_status_icon_new_from_pixbuf(pixbuf_num);
+    g_object_unref(pixbuf_num);
 
-    // kls.caps_icon = gtk_status_icon_new_from_file(PIXMAPDIR"/keylock-tray-caps.svg");
-    // if (!gtk_status_icon_get_pixbuf(kls.caps_icon)) {
-    //     g_object_unref(kls.caps_icon);
-    //     kls.caps_icon = gtk_status_icon_new_from_file("./keylock-tray-caps.svg");
-    // }
     gtk_status_icon_set_title(kls.caps_icon, "KeyLockTray: Caps Lock");
-    //
-    // kls.num_icon = gtk_status_icon_new_from_file(PIXMAPDIR"/keylock-tray-num.svg");
-    // if (!gtk_status_icon_get_pixbuf(kls.num_icon)) {
-    //     g_object_unref(kls.num_icon);
-    //     kls.num_icon = gtk_status_icon_new_from_file("./keylock-tray-num.svg");
-    // }
     gtk_status_icon_set_title(kls.caps_icon, "KeyLockTray: Num Lock");
 
     check_keylock_state(&kls);
