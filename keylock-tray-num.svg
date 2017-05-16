@@ -9,18 +9,16 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="128"
-   height="128"
+   width="136.53334"
+   height="136.53334"
    viewBox="0 0 128 128"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.1 r"
    sodipodi:docname="keylock-tray-num.svg"
-   inkscape:export-filename="/home/justin/Projects/keylock-tray/keylock-tray-caps.png"
+   inkscape:export-filename="/home/justin/Projects/keylock-tray/keylock-tray-num.png"
    inkscape:export-xdpi="22.5"
    inkscape:export-ydpi="22.5">
-  <defs
-     id="defs4" />
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -36,6 +34,41 @@
      showgrid="false"
      units="px"
      inkscape:showpageshadow="false" />
+  <style
+     id="style4601" type="text/css">
+.bg {
+    opacity:1;
+    stroke-linejoin:miter;
+    stroke-opacity:1;
+    fill-opacity:1;
+    stroke:#eeeeee;
+    stroke-linecap:butt;
+    stroke-miterlimit:4;
+    stroke-dasharray:none;
+    stroke-width:12;
+    fill:#333333;
+}
+.fg {
+    stroke-linejoin:miter;
+    letter-spacing:0px;
+    stroke-opacity:1;
+    fill-opacity:1;
+    font-weight:bold;
+    font-stretch:normal;
+    word-spacing:0px;
+    stroke:none;
+    stroke-linecap:butt;
+    font-variant:normal;
+    stroke-width:1px;
+    font-style:normal;
+    fill:#eeeeee;
+    font-size:105px;
+    line-height:1.25;
+    font-family:'DejaVu Sans';
+    -inkscape-font-specification:'DejaVu Sans Bold';
+}</style>
+  <defs
+     id="defs4" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -44,7 +77,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -54,7 +87,6 @@
      id="layer1"
      transform="translate(0,-924.36216)">
     <rect
-       style="opacity:1;fill:#333333;fill-opacity:1;stroke:#eeeeee;stroke-width:12;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect3336"
        width="112"
        height="112"
@@ -63,18 +95,17 @@
        rx="16"
        ry="16"
        inkscape:export-xdpi="11.25"
-       inkscape:export-ydpi="11.25" />
+       inkscape:export-ydpi="11.25"
+       class="bg" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:105.35553741px;line-height:125%;font-family:'DejaVu Serif';-inkscape-font-specification:'DejaVu Serif';letter-spacing:0px;word-spacing:0px;fill:#eeeeee;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="25.16333"
        y="1026.6349"
-       id="text4522"
-       sodipodi:linespacing="125%"><tspan
+       id="text4522"><tspan
          sodipodi:role="line"
          id="tspan4524"
          x="25.16333"
          y="1026.6349"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:105px;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans Bold';fill:#eeeeee;fill-opacity:1">1</tspan></text>
+         class="fg">1</tspan></text>
   </g>
 </svg>
