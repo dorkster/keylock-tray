@@ -2,7 +2,10 @@
 
 This is a simple application that displays tray icons if either caps lock or num lock are on. It is intended for systems that lack LEDs to indicate their status.
 
+## Usage
 
+    keylock-tray -b $BG_COLOR -f $FG_COLOR
+    keylock-tray -b "#333333" -f "#eeeeee"
 
 ## Dependencies & Building
 

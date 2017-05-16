@@ -21,6 +21,7 @@
 #include <gtk/gtk.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #ifndef PIXMAPDIR
 #define PIXMAPDIR "/usr/share/pixmaps"
@@ -114,6 +115,18 @@ GdkPixbuf *load_icon(char *filename, char *color1, char *color2) {
 }
 
 int main(int argc, char* argv[]) {
+    char c;
+    while ((c = getopt(argc, argv, "b:f:")) != -1) {
+        switch (c) {
+            case 'b':
+                BG_COLOR = optarg;
+                break;
+            case 'f':
+                FG_COLOR = optarg;
+                break;
+        }
+    }
+
     KeyLockState kls;
     kls.caps_on = false;
     kls.num_on = false;
