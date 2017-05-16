@@ -20,10 +20,14 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #ifndef PIXMAPDIR
 #define PIXMAPDIR "/usr/share/pixmaps"
 #endif
+
+char *BG_COLOR = "#333333";
+char *FG_COLOR = "#ffffff";
 
 typedef struct KeyLockState {
     bool caps_on;
@@ -63,6 +67,52 @@ gboolean check_keylock_state(KeyLockState* kls) {
     return TRUE;
 }
 
+GdkPixbuf *load_icon(char *filename, char *color1, char *color2) {
+    FILE *test = fopen(filename, "r");
+    char *buf = 0;
+    if (test) {
+        size_t len;
+        size_t bytes_read = getdelim(&buf, &len, '\0', test);
+        if (bytes_read == -1) {
+            free(buf);
+            return NULL;
+        }
+
+        fclose(test);
+    }
+    else {
+        return NULL;
+    }
+
+    gchar *str = g_strconcat(
+        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"
+        "<svg version=\"1.1\"\n"
+        "     xmlns=\"http://www.w3.org/2000/svg\"\n"
+        "     width=\"64\"\n"
+        "     height=\"64\">\n"
+        "  <style type=\"text/css\">\n"
+        "    .bg {\n"
+        "      fill: ", color1, " !important;\n"
+        "      stroke: ", color2, " !important;\n"
+        "    }\n"
+        "    .fg {\n"
+        "      fill: ", color2, " !important;\n"
+        "    }\n"
+        "  </style>\n" , buf, "\n"
+        "</svg>",
+        NULL);
+
+    free(buf);
+
+    GInputStream *stream = g_memory_input_stream_new_from_data(str, -1, g_free);
+
+    GdkPixbuf *ret = gdk_pixbuf_new_from_stream(stream, NULL, NULL);
+
+    g_object_unref(stream);
+
+    return ret;
+}
+
 int main(int argc, char* argv[]) {
     KeyLockState kls;
     kls.caps_on = false;
@@ -75,18 +125,30 @@ int main(int argc, char* argv[]) {
 
     gtk_init(&argc, &argv);
 
-    kls.caps_icon = gtk_status_icon_new_from_file(PIXMAPDIR"/keylock-tray-caps.svg");
-    if (!gtk_status_icon_get_pixbuf(kls.caps_icon)) {
-        g_object_unref(kls.caps_icon);
-        kls.caps_icon = gtk_status_icon_new_from_file("./keylock-tray-caps.svg");
+    GdkPixbuf *pixbuf_caps = load_icon(PIXMAPDIR"/keylock-tray-caps.svg", BG_COLOR, FG_COLOR);
+    if (!pixbuf_caps) {
+        pixbuf_caps = load_icon("./keylock-tray-caps.svg", BG_COLOR, FG_COLOR);
     }
-    gtk_status_icon_set_title(kls.caps_icon, "KeyLockTray: Caps Lock");
+    kls.caps_icon = gtk_status_icon_new_from_pixbuf(pixbuf_caps);
 
-    kls.num_icon = gtk_status_icon_new_from_file(PIXMAPDIR"/keylock-tray-num.svg");
-    if (!gtk_status_icon_get_pixbuf(kls.num_icon)) {
-        g_object_unref(kls.num_icon);
-        kls.num_icon = gtk_status_icon_new_from_file("./keylock-tray-num.svg");
+    GdkPixbuf *pixbuf_num = load_icon(PIXMAPDIR"/keylock-tray-num.svg", BG_COLOR, FG_COLOR);
+    if (!pixbuf_num) {
+        pixbuf_num = load_icon("./keylock-tray-num.svg", BG_COLOR, FG_COLOR);
     }
+    kls.num_icon = gtk_status_icon_new_from_pixbuf(pixbuf_num);
+
+    // kls.caps_icon = gtk_status_icon_new_from_file(PIXMAPDIR"/keylock-tray-caps.svg");
+    // if (!gtk_status_icon_get_pixbuf(kls.caps_icon)) {
+    //     g_object_unref(kls.caps_icon);
+    //     kls.caps_icon = gtk_status_icon_new_from_file("./keylock-tray-caps.svg");
+    // }
+    gtk_status_icon_set_title(kls.caps_icon, "KeyLockTray: Caps Lock");
+    //
+    // kls.num_icon = gtk_status_icon_new_from_file(PIXMAPDIR"/keylock-tray-num.svg");
+    // if (!gtk_status_icon_get_pixbuf(kls.num_icon)) {
+    //     g_object_unref(kls.num_icon);
+    //     kls.num_icon = gtk_status_icon_new_from_file("./keylock-tray-num.svg");
+    // }
     gtk_status_icon_set_title(kls.caps_icon, "KeyLockTray: Num Lock");
 
     check_keylock_state(&kls);
