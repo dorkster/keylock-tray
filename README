@@ -16,7 +16,7 @@ This is a simple application that displays tray icons if either caps lock or num
 To compile, run the following in the base directory:
 
 ```
-cmake
+cmake .
 make
 ```
 
